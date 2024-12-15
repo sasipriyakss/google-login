@@ -41,7 +41,7 @@ function App() {
 //if we have a user: show log out button
   return (
     <>
-
+    
      <h3>Sign In with your google account</h3>
      <div id="signInDiv"></div>
 
@@ -52,10 +52,11 @@ function App() {
       <img src={user.picture}></img>
       <h3> {user.name}</h3>
      </div>}
-
+     <div className='btn'>
      { Object.keys(user).length !=0 &&
- <button onClick={ (e) => handleSignOut(e)}> Sign Out </button>
-}
+       <button onClick={ (e) => handleSignOut(e)}> Sign Out </button>
+     }
+     </div>
     </>
   )
 }
@@ -63,7 +64,15 @@ function App() {
 export default App
 
 
-{/*<img
+
+{/*
+  Fallback Image Handling:
+To ensure your app doesn't break for users without a valid profile picture, add a fallback image.
+
+Update your img tag like this:
+  
+  
+  <img
   src={user.picture || "https://via.placeholder.com/150"}
   alt="Profile"
   onError={(e) => {
