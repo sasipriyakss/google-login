@@ -1,0 +1,21 @@
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px;
+}
+
+img{
+  border-radius: 50%;
+  align-items: center;
+  margin: auto;
+  
+}
+
+.display{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
