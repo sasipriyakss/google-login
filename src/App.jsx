@@ -8,18 +8,23 @@ import jwt_decode from "jwt-decode";
 function App() {
 
   const [user, setUser]= useState({});
+  const [welcome,setWelcome]=useState("")
 
   function handleCallbackResponse(response){
     console.log("Encoded JWT ID token" + response.credential);
     const userObject = jwt_decode(response.credential);
     console.log(userObject);
     setUser(userObject);
+    setWelcome("welcome")
     document.getElementById("signInDiv").hidden=true;
+   
   }
 
   function handleSignOut(event){
     setUser({});
+    setWelcome("");
     document.getElementById("signInDiv").hidden=false;
+  
 
   }
   useEffect(()=> {
@@ -33,7 +38,7 @@ function App() {
     google.accounts.id.renderButton(
 
       document.getElementById('signInDiv'),
-      { theme:"outline", size:"large"}
+      { theme:"outline", size:"medium",shape:"pill"}
     )
   //  google.accounts.id.prompt();
     },[]);
@@ -46,11 +51,12 @@ function App() {
      <div id="signInDiv"></div>
 
 
-    
+
      {user && 
      <div className='display'>
       <img src={user.picture}></img>
-      <h3> {user.name}</h3>
+      <h2>{welcome}</h2>
+      <h3>{user.name}</h3>
      </div>}
      <div className='btn'>
      { Object.keys(user).length !=0 &&
@@ -77,4 +83,4 @@ Update your img tag like this:
   alt="Profile"
   onError={(e) => {
     e.target.src = "https://via.placeholder.com/150"; // Default image if the URL fails
-  }} */}
+  }} />*/}

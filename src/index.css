@@ -38,3 +38,10 @@ img{
   background-color: dodgerblue;
   border-radius: 5px;
 }
+
+#signInDiv
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
