@@ -20,7 +20,7 @@ function handelSignOut(event)
     useEffect(()=>
     {
         google.accounts.id.initialize({
-            client_id:"662686241550-9a9pun0jijj7cg73uhmomthm7rh1p5c9.apps.googleusercontent.com",
+            client_id:"enter your id",
             callback: handleCallbackResponse
          });
         google.accounts.id.renderButton(
