@@ -8,22 +8,23 @@ import jwt_decode from "jwt-decode";
 function App() {
 
   const [user, setUser]= useState({});
-  const [welcome,setWelcome]=useState("")
+  const [welcome,setWelcome]=useState("");
+  const [isSignedIn,setIsSignedIn]=useState(false);
 
   function handleCallbackResponse(response){
     console.log("Encoded JWT ID token" + response.credential);
     const userObject = jwt_decode(response.credential);
     console.log(userObject);
     setUser(userObject);
-    setWelcome("welcome")
-    document.getElementById("signInDiv").hidden=true;
+    setWelcome("welcome");
+    setIsSignedIn(true);
    
   }
 
   function handleSignOut(event){
     setUser({});
     setWelcome("");
-    document.getElementById("signInDiv").hidden=false;
+    setIsSignedIn(false);
   
 
   }
@@ -35,34 +36,36 @@ function App() {
       callback:handleCallbackResponse
       });
 
+    if(!isSignedIn){
     google.accounts.id.renderButton(
 
       document.getElementById('signInDiv'),
-      { theme:"outline", size:"medium",shape:"pill"}
-    )
-  //  google.accounts.id.prompt();
-    },[]);
+      { theme:"outline", size:"medium" ,shape:"pill"}
+    );
+    }
+    },[isSignedIn]);
 // If we have no user: sign in button
 //if we have a user: show log out button
   return (
     <>
     
      <h3>Sign In with your google account</h3>
-     <div id="signInDiv"></div>
+     {!isSignedIn && <div id="signInDiv"></div>}
 
 
 
-     {user && 
+     {isSignedIn&&user && 
      <div className='display'>
       <img src={user.picture}></img>
       <h2>{welcome}</h2>
       <h3>{user.name}</h3>
+      <h4>{user.email}</h4>
      </div>}
-     <div className='btn'>
-     { Object.keys(user).length !=0 &&
-       <button onClick={ (e) => handleSignOut(e)}> Sign Out </button>
-     }
-     </div>
+     {isSignedIn && (
+        <div className="btn">
+          <button onClick={handleSignOut}>Sign Out</button>
+        </div>
+      )}
     </>
   )
 }
@@ -84,3 +87,4 @@ Update your img tag like this:
   onError={(e) => {
     e.target.src = "https://via.placeholder.com/150"; // Default image if the URL fails
   }} />*/}
+
